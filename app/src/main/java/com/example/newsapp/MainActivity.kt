@@ -16,37 +16,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.WindowCompat
 import com.example.newsapp.presentation.onboarding.OnBoardingScreen
 import com.example.newsapp.ui.theme.NewsAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         installSplashScreen()
         enableEdgeToEdge()
         setContent {
             NewsAppTheme {
-                Box(modifier = Modifier.background(color = MaterialTheme.colorScheme.background)){
+                Box(
+                    modifier = Modifier.background(
+                        color = MaterialTheme.colorScheme.background
+                    )
+                ){
                     OnBoardingScreen()
-
                 }
             }
         }
     }
 }
-//
-//@Composable
-//fun Greeting(name: String, modifier: Modifier = Modifier) {
-//    Text(
-//        text = "Hello $name!",
-//        modifier = modifier.padding(24.dp)
-//    )
-//}
-//
-//@Preview(showBackground = true)
-//@Composable
-//fun GreetingPreview() {
-//    NewsAppTheme {
-//        Greeting("Android")
-//    }
-//}
