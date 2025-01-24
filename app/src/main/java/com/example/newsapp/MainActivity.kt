@@ -46,6 +46,7 @@ import coil.size.Size
 import com.example.newsapp.data.ProductRepositoryImpl
 import com.example.newsapp.data.model.Product
 import com.example.newsapp.presentation.ProductsViewModel
+import com.example.newsapp.presentation.common.ProductItem
 import com.example.newsapp.presentation.onboarding.OnBoardingScreen
 import com.example.newsapp.ui.theme.NewsAppTheme
 import kotlinx.coroutines.flow.collectLatest
@@ -109,52 +110,5 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-}
-
-@Composable
-fun ProductItem(product: Product){
-    val imageState = rememberAsyncImagePainter(
-        model = ImageRequest.Builder(LocalContext.current).data(product.thumbnail).size(Size.ORIGINAL).build()
-    ).state
-
-    Column(
-        modifier = Modifier
-            .clip(RoundedCornerShape(16.dp))
-            .height(300.dp)
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.surface)
-    ) {
-        if(imageState is AsyncImagePainter.State.Error){
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
-            }
-        }
-        if(imageState is AsyncImagePainter.State.Success){
-            Image(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp)
-                    .clip(RoundedCornerShape(16.dp)),
-                painter = imageState.painter,
-                contentDescription = product.title,
-                contentScale = ContentScale.Crop
-            )
-
-        }
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Text(
-            modifier = Modifier.padding(horizontal = 8.dp),
-            text = "${product.title} --Price: ${product.price}",
-            fontSize = 18.sp,
-            color = Color.Blue
-        )
     }
 }
